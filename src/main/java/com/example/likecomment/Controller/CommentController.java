@@ -50,8 +50,8 @@ public class CommentController {
 
     //특정 게시글의 댓글 가져오기
     @GetMapping("/posting/{postingId}")
-    public ResponseEntity<List<Map<String, Object>>> getCommentsByPostingId(@PathVariable String postingId) {
-        List<Map<String, Object>> comments = commentService.getCommentsWithUserDetails(postingId);
+    public ResponseEntity<List<CommentEntity>> getCommentsByPostingId(@PathVariable String postingId) {
+        List<CommentEntity> comments = commentService.getCommentsByPostingId(postingId);
         return ResponseEntity.ok(comments);
     }
 
@@ -61,5 +61,10 @@ public class CommentController {
         List<CommentEntity> comments = commentService.getCommentsByUserId(userId);
         return ResponseEntity.ok(comments);
     }
-}
 
+    @GetMapping("/listByUser")
+    public ResponseEntity<List<Map<String, Object>>> getUserByUserDetails(@RequestParam("user_id") String userId) {
+        List<Map<String, Object>> commentsByUserDetails = commentService.getUserByUserDetails(userId);
+        return ResponseEntity.ok(commentsByUserDetails);
+    }
+}

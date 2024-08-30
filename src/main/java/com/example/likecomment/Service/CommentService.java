@@ -69,16 +69,14 @@ public class CommentService {
         return userCache.getOrDefault(userId, null);
     }
 
-    public List<Map<String, Object>> getCommentsWithUserDetails(String postingId) {
-        List<CommentEntity> comments = getCommentsByPostingId(postingId);
+    public List<Map<String, Object>> getUserByUserDetails(String userId) {
+        UserDto user = getUserInfo(userId);
+        List<CommentEntity> comments = commentRepository.findByUserId(userId);
 
-        return comments.stream().map(comment -> {
-            UserDto user = getUserInfo(comment.getUserId());
-            return Map.of(
-                    "comments", comment,
-                    "userName", user != null ? user.getName() : "Unknown User",
-                    "userProfile", user != null ? user.getPhoto() : "/assets/cha.png"
-            );
-        }).collect(Collectors.toList());
+        return comments.stream().map(post -> Map.of(
+                "posting", post,
+                "userName", user != null ? user.getName() : "Unknown User",
+                "userProfile", user != null ? user.getPhoto() : "/assets/cha.png"
+        )).collect(Collectors.toList());
     }
 }
