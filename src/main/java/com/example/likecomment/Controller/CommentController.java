@@ -62,9 +62,9 @@ public class CommentController {
         return ResponseEntity.ok(comments);
     }
 
-    @GetMapping("/listByUser")
-    public ResponseEntity<List<Map<String, Object>>> getUserByUserDetails(@RequestParam("user_id") String userId) {
-        List<Map<String, Object>> commentsByUserDetails = commentService.getUserByUserDetails(userId);
+    @GetMapping("/listByUser/{postingId}")
+    public ResponseEntity<List<Map<String, Object>>> getUserByUserDetails(@PathVariable String postingId) {
+        List<Map<String, Object>> commentsByUserDetails = commentService.getUserByUserDetails(postingId);
         return ResponseEntity.ok(commentsByUserDetails);
     }
 }
