@@ -4,6 +4,7 @@ import com.example.likecomment.Entity.CommentEntity;
 import com.example.likecomment.Service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,13 +49,6 @@ public class CommentController {
         return ResponseEntity.noContent().build();
     }
 
-    //특정 게시글의 댓글 가져오기
-    @GetMapping("/posting/{postingId}")
-    public ResponseEntity<List<CommentEntity>> getCommentsByPostingId(@PathVariable String postingId) {
-        List<CommentEntity> comments = commentService.getCommentsByPostingId(postingId);
-        return ResponseEntity.ok(comments);
-    }
-
     //특정 유저의 댓글 가져오기
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<CommentEntity>> getCommentsByUserId(@PathVariable String userId) {
@@ -62,9 +56,9 @@ public class CommentController {
         return ResponseEntity.ok(comments);
     }
 
-    @GetMapping("/listByUser/{postingId}")
-    public ResponseEntity<List<Map<String, Object>>> getUserByUserDetails(@PathVariable String postingId) {
-        List<Map<String, Object>> commentsByUserDetails = commentService.getUserByUserDetails(postingId);
-        return ResponseEntity.ok(commentsByUserDetails);
+    @GetMapping("/listByUser")
+    public ResponseEntity<Map<String, Object>> getUserByUserDetails(@RequestParam String postingId) {
+        List<Map<String, Object>> commentsWithUserDetails = commentService.getCoomentsByPostingId(postingId);
+            return ResponseEntity.ok(Map.of("comments", commentsWithUserDetails));
     }
 }

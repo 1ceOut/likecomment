@@ -1,4 +1,3 @@
-// FavoriteController.java
 package com.example.likecomment.Controller;
 
 import com.example.likecomment.Service.FavoriteService;
