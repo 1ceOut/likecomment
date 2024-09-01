@@ -4,10 +4,10 @@ import com.example.likecomment.Entity.CommentEntity;
 import com.example.likecomment.Service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -36,15 +36,15 @@ public class CommentController {
     }
 
     //댓글 수정
-    @PutMapping("/update/{id}")
-    public ResponseEntity<CommentEntity> updateComment(@PathVariable Long id, @RequestBody CommentEntity updatedComment) {
+    @PutMapping("/update")
+    public ResponseEntity<CommentEntity> updateComment(@RequestParam Long id, @RequestBody CommentEntity updatedComment) {
         Optional<CommentEntity> comment = commentService.updateComment(id, updatedComment);
         return comment.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     //댓글 삭제
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteComment(@RequestParam Long id) {
         commentService.deleteComment(id);
         return ResponseEntity.noContent().build();
     }
@@ -59,6 +59,9 @@ public class CommentController {
     @GetMapping("/listByUser")
     public ResponseEntity<Map<String, Object>> getUserByUserDetails(@RequestParam String postingId) {
         List<Map<String, Object>> commentsWithUserDetails = commentService.getCoomentsByPostingId(postingId);
-            return ResponseEntity.ok(Map.of("comments", commentsWithUserDetails));
+        if (commentsWithUserDetails == null) {
+            commentsWithUserDetails = Collections.emptyList();  // 또는 적절한 빈 리스트 생성
+        }
+        return ResponseEntity.ok(Map.of("comments", commentsWithUserDetails));
     }
 }
