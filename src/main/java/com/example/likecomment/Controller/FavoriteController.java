@@ -1,4 +1,3 @@
-// FavoriteController.java
 package com.example.likecomment.Controller;
 
 import com.example.likecomment.Service.FavoriteService;
@@ -8,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/favorite")
-//@CrossOrigin(origins = {"http://localhost:8080", "https://api.icebuckwheat.kro.kr"}, allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:8080"}, allowCredentials = "true")
 public class FavoriteController {
 
     @Autowired
