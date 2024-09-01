@@ -28,7 +28,4 @@ public class CommentEntity {
 
     @Column(name = "comment")
     private String comment;
-
-    @Column(name = "commentimg")
-    private String commentimg;
 }

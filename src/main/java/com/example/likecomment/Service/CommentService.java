@@ -31,12 +31,15 @@ public class CommentService {
 
     public Optional<CommentEntity> updateComment(Long commentId, CommentEntity updatedComment) {
         return commentRepository.findById(commentId).map(comment -> {
-            comment.setPostingId(updatedComment.getPostingId());
-            comment.setUserId(updatedComment.getUserId());
-            comment.setRate(updatedComment.getRate());
-            comment.setDiff(updatedComment.getDiff());
-            comment.setComment(updatedComment.getComment());
-            comment.setCommentimg(updatedComment.getCommentimg());
+            if (updatedComment.getRate() != null) {
+                comment.setRate(updatedComment.getRate());
+            }
+            if (updatedComment.getDiff() != null) {
+                comment.setDiff(updatedComment.getDiff());
+            }
+            if (updatedComment.getComment() != null) {
+                comment.setComment(updatedComment.getComment());
+            }
             return commentRepository.save(comment);
         });
     }
