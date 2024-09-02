@@ -7,6 +7,7 @@ import com.example.likecomment.Repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ public class CommentService {
     private Map<String, UserDto> userCache = new HashMap<>();
 
     public CommentEntity createComment(CommentEntity commentEntity) {
+        commentEntity.setWriteday(LocalDateTime.now());
         return commentRepository.save(commentEntity);
     }
 
@@ -39,6 +41,9 @@ public class CommentService {
             }
             if (updatedComment.getComment() != null) {
                 comment.setComment(updatedComment.getComment());
+            }
+            if (updatedComment.getWriteday() != null) {
+                comment.setWriteday(updatedComment.getWriteday());
             }
             return commentRepository.save(comment);
         });
@@ -65,7 +70,7 @@ public class CommentService {
         return userCache.getOrDefault(userId, null);
     }
 
-    public List<Map<String, Object>> getCoomentsByPostingId(String postingId) {
+    public List<Map<String, Object>> getCommentsByPostingId(String postingId) {
         List<CommentEntity> comments = commentRepository.findCommentsByPostingId(postingId);
         if (comments == null || comments.isEmpty()) {
             return null;
