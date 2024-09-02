@@ -15,7 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/comment")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:8080"}, allowCredentials = "true")
+//@CrossOrigin(origins = {"http://localhost:8080"}, allowCredentials = "true")
 public class CommentController {
 
     @Autowired
