@@ -16,7 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/comment")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:8080"}, allowCredentials = "true")
+//@CrossOrigin(origins = {"http://localhost:8080"}, allowCredentials = "true")
 public class CommentController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class CommentController {
 
     @PostMapping("/insert")
     public ResponseEntity<CommentEntity> createComment(@RequestBody CommentEntity commentEntity) {
-        commentEntity.setWriteday(LocalDateTime.now());  // Set writeday to the current date and time
+        commentEntity.setWriteday(LocalDateTime.now());
         CommentEntity createdComment = commentService.createComment(commentEntity);
         return ResponseEntity.ok(createdComment);
     }
