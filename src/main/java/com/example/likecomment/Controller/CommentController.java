@@ -24,6 +24,7 @@ public class CommentController {
 
     @PostMapping("/insert")
     public ResponseEntity<CommentEntity> createComment(@RequestBody CommentEntity commentEntity) {
+        commentEntity.setWriteday(LocalDateTime.now());
         CommentEntity createdComment = commentService.createComment(commentEntity);
         return ResponseEntity.ok(createdComment);
     }
