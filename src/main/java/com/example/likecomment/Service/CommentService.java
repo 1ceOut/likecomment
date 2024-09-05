@@ -23,7 +23,6 @@ public class CommentService {
     private Map<String, UserDto> userCache = new HashMap<>();
 
     public CommentEntity createComment(CommentEntity commentEntity) {
-        commentEntity.setWriteday(LocalDateTime.now());
         return commentRepository.save(commentEntity);
     }
 
