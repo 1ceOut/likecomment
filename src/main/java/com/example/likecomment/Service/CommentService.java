@@ -58,11 +58,9 @@ public class CommentService {
     }
 
     private void loadAllUsers() {
-        if (userCache.isEmpty()) {
             List<UserDto> users = userClient.getAllUsers();
             userCache = users.stream()
                     .collect(Collectors.toMap(UserDto::getUserId, user -> user));
-        }
     }
 
     public UserDto getUserInfo(String userId) {
