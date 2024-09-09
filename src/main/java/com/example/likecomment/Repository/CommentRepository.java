@@ -12,4 +12,6 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
     List<CommentEntity> findByUserId(String userId);
 
     List<CommentEntity> findCommentsByPostingId(String postingId);
+
+    long countByPostingId(String postingId);
 }

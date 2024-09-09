@@ -7,7 +7,6 @@ import com.example.likecomment.Repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -84,5 +83,9 @@ public class CommentService {
             result.add(commentWithUserDetails);
         }
         return result;
+    }
+
+    public long getCommentCount(String postingId) {
+        return commentRepository.countByPostingId(postingId);
     }
 }

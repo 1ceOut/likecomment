@@ -16,7 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/comment")
 @RequiredArgsConstructor
-//@CrossOrigin(origins = {"http://localhost:8080"}, allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:8080"}, allowCredentials = "true")
 public class CommentController {
 
     @Autowired
@@ -60,5 +60,11 @@ public class CommentController {
             commentsWithUserDetails = Collections.emptyList();
         }
         return ResponseEntity.ok(Map.of("comments", commentsWithUserDetails));
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getCommentCount(@RequestParam String postingId) {
+        long count = commentService.getCommentCount(postingId);
+        return ResponseEntity.ok(count);
     }
 }
