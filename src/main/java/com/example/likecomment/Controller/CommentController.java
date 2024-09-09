@@ -61,4 +61,10 @@ public class CommentController {
         }
         return ResponseEntity.ok(Map.of("comments", commentsWithUserDetails));
     }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getCommentCount(@RequestParam String postingId) {
+        long count = commentService.getCommentCount(postingId);
+        return ResponseEntity.ok(count);
+    }
 }
